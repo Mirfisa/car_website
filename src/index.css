@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f3f2f3;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 30px !important;
+  color: black !important;
+}
+
+.slick-prev {
+  left: -35px !important;
+}
+
+.slick-next {
+  right: -35px !important;
+}
+
+.social-icon {
+  filter: brightness(0.5) contrast(1.5);
+}
