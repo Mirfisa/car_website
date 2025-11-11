@@ -10,17 +10,17 @@ import { Slide } from './types';
 const slides: Slide[] = [
   {
     id: 1,
-    image: "/public/cars/car1.jpg",
+    image: "/cars/car1.jpg",
     alt: "Modern Cars"
   },
   {
     id: 2,
-    image: "/public/cars/car2.jpg",
+    image: "/cars/car2.jpg",
     alt: "Easy Financing"
   },
   {
     id: 3,
-    image: "/public/cars/car3.jpg",
+    image: "/cars/car3.jpg",
     alt: "Pre-Order Now"
   }
 ];
