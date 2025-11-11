@@ -42,9 +42,8 @@ function App() {
       <div className="flex-grow bg-white dark:bg-gray-900">
         <TopBar /> {/* Render TopBar here */}
         <Header />
-        <Carousel slides={slides} />
         <main>
-          <Hero />
+          <Carousel slides={slides} />
           <Features />
         </main>
       </div>
