@@ -2,6 +2,26 @@ import React from 'react';
 import Slider from 'react-slick';
 import { CarouselProps, Slide } from '../types';
 
+const NextArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <div
+      className="absolute top-0 right-0 z-10 w-1/2 h-full cursor-pointer"
+      onClick={onClick}
+    />
+  );
+};
+
+const PrevArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <div
+      className="absolute top-0 left-0 z-10 w-1/2 h-full cursor-pointer"
+      onClick={onClick}
+    />
+  );
+};
+
 const Carousel: React.FC<CarouselProps> = ({ slides }) => {
   const settings = {
     dots: true,
@@ -10,9 +30,10 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     adaptiveHeight: true,
-    arrows: false // This line removes the side navigation buttons
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />
   };
 
   return (
