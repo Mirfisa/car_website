@@ -1,49 +1,44 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-white dark:bg-dark-bg shadow-md">
+    <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
-            <a href="/" className="text-2xl font-bold text-gray-800 dark:text-white">
+            <a href="/" className="text-2xl font-bold text-gray-800">
               <img src="./favicon.png" alt="Shahab's Trading Logo" className="h-12 w-auto"/>
             </a>
           </div>
           <div className="hidden md:flex items-center justify-center flex-1">
             <nav>
-              <a href="/" className="mx-4 text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white">
+              <Link to="/" className="mx-4 text-gray-600 hover:text-gray-700 font-semibold transition duration-700 hover:scale-115 hover:shadow-lg hover:font-bold">
                 Home
-              </a>
-              <a href="/" className="mx-4 text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white">
+              </Link>
+              <Link to="/about" className="mx-4 text-gray-600 hover:text-gray-700 font-semibold transition duration-700 hover:scale-115 hover:shadow-lg hover:font-bold">
                 About Us
-              </a>
-              <a href="/" className="mx-4 text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white">
-                Pre-Order
-              </a>
-              <a href="/" className="mx-4 text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white">
-                Cars
-              </a>
-              <a href="/" className="mx-4 text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white">
-                Car Loan
-              </a>
-              <a href="/" className="mx-4 text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white">
-                Contact
-              </a>
+              </Link>
+
+              <Link to="/cars" className="mx-4 text-gray-600 hover:text-gray-700 font-semibold transition duration-700 hover:scale-115 hover:shadow-lg hover:font-bold">
+                StockList
+              </Link>
+
+
             </nav>
           </div>
           <div className="hidden md:flex items-center">
             <a
-              href="/"
-              className="px-8 py-3 text-lg font-medium text-white bg-orange-500 rounded-md hover:bg-orange-600"
+              href="/contact"
+              className="px-8 py-3 text-lg font-medium text-white bg-[#fe9900] rounded-md hover:bg-[#ec6f3d]"
             >
-              Get Started
+              Contact us
             </a>
           </div>
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white focus:outline-none">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-600 hover:text-gray-700 focus:outline-none">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -56,30 +51,24 @@ const Header = () => {
         </div>
         {isOpen && (
           <div className="md:hidden mt-4">
-            <a href="/" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-bg">
+            <a href="/" className="block px-4 py-2 text-gray-600 hover:bg-gray-200">
               Home
             </a>
-            <a href="/" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-bg">
+            <a href="/" className="block px-4 py-2 text-gray-600 hover:bg-gray-200">
               About Us
             </a>
-            <a href="/" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-bg">
-              Pre-Order
+
+            <a href="/cars" className="block px-4 py-2 text-gray-600 hover:bg-gray-200">
+              StockList
             </a>
-            <a href="/" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-bg">
-              Cars
-            </a>
-            <a href="/" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-bg">
-              Car Loan
-            </a>
-            <a href="/" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-bg">
-              Contact
-            </a>
+
+
             <div className="mt-4">
               <a
-                href="/"
-                className="block px-8 py-3 text-lg font-medium text-white bg-orange-500 rounded-md hover:bg-orange-600 text-center"
+                href="/contact"
+                className="block px-8 py-3 text-lg font-medium text-white bg-orange-500 rounded-md hover:bg-[#d68100] text-center"
               >
-                Get Started
+                CONTACT US
               </a>
             </div>
           </div>
