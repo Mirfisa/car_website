@@ -55,10 +55,15 @@ const CarList: React.FC = () => {
               const carName = car['Car Name'];
               const carGrade = car['Grade'];
               const carModelYear = car['Model'];
-              const carPictures = 'cars/car1.png';
+              const carImgURL = car['imgURL'];
               const carPrice = car['Price'] ?? car['Landing'] ?? '';
+              let carPictures = 'https://via.placeholder.com/300x200?text=No+Image'; // Generic placeholder
 
-              if (carName && carGrade && carModelYear && carPictures) {
+              if (carImgURL) {
+                carPictures = carImgURL;
+              }
+
+              if (carName && carGrade && carModelYear) {
                 return { ...car, name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures, Price: carPrice };
               }
               return null;
