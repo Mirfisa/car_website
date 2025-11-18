@@ -33,6 +33,14 @@ const CarList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    grade: '',
+    minPrice: '',
+    maxPrice: '',
+    modelYear: '',
+  });
+  const [grades, setGrades] = useState<string[]>([]);
+  const [modelYears, setModelYears] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -70,6 +78,8 @@ const CarList: React.FC = () => {
             }).filter(Boolean);
             console.log("Processed cars:", processedCars);
             setCars(processedCars as Car[]);
+            setGrades([...new Set(processedCars.map((car: any) => car.grade))]);
+            setModelYears([...new Set(processedCars.map((car: any) => car.model_year))]);
             setLoading(false);
           },
           error: (error: any) => {
@@ -85,10 +95,47 @@ const CarList: React.FC = () => {
     fetchCars();
   }, []);
 
+  const [activeFilters, setActiveFilters] = useState({
+    grade: '',
+    minPrice: '',
+    maxPrice: '',
+    modelYear: '',
+  });
+
+  const handleFilterChange = (newFilters: any) => {
+    console.log('newFilters:', newFilters);
+    setFilters(newFilters);
+  };
+
+  const handleFilterSubmit = () => {
+    setActiveFilters(filters);
+  };
+
+  const handleClearFilters = () => {
+    const clearedFilters = {
+      grade: '',
+      minPrice: '',
+      maxPrice: '',
+      modelYear: '',
+    };
+    setFilters(clearedFilters);
+    setActiveFilters(clearedFilters);
+  };
+
+  const filteredCars = cars.filter((car) => {
+    const { grade, minPrice, maxPrice, modelYear } = activeFilters;
+    return (
+      (grade ? car.grade === grade : true) &&
+      (minPrice ? parseFloat(car.Price) >= parseFloat(minPrice) : true) &&
+      (maxPrice ? parseFloat(car.Price) <= parseFloat(maxPrice) : true) &&
+      (modelYear ? car.model_year === modelYear : true)
+    );
+  });
+
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = cars.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredCars.slice(indexOfFirstItem, indexOfLastItem);
   console.log("Current items:", currentItems);
 
   if (loading) {
@@ -121,7 +168,14 @@ const CarList: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <div className={`lg:col-span-1 mt-4 lg:mt-16 ${isSidebarOpen ? 'block' : 'hidden'} lg:block`}>
-            <FilterSidebar />
+            <FilterSidebar
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onFilterSubmit={handleFilterSubmit}
+              onClearFilters={handleClearFilters}
+              grades={grades}
+              modelYears={modelYears}
+            />
           </div>
 
           {/* Car Grid */}
