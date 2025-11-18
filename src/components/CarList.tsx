@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
+import { Link } from 'react-router-dom';
 import FilterSidebar from './FilterSidebar';
 
 interface Car {
+  'S.N.': string;
+  'Car Name': string;
+  'Model': string;
+  'Chasis Number': string;
+  'Colour': string;
+  'Mileage': string;
+  'Engine': string;
+  'Grade': string;
+  'Details': string;
+  'Landing': string;
+  'Location': string;
+  'Picture': string;
+  'Status': string;
+  'Drive Image': string;
   name: string;
   grade: string;
   model_year: string;
   pictures: string;
-  image: string; // Keep for now, will be empty
-  details: string; // Keep for now, will be empty
 }
 
 const CarList: React.FC = () => {
@@ -41,12 +54,8 @@ const CarList: React.FC = () => {
               const carModelYear = car['Model'];
               const carPictures = car['Picture'];
 
-              // For now, image and details will be empty strings
-              const carImage = '';
-              const carDetails = '';
-
               if (carName && carGrade && carModelYear && carPictures) {
-                return { name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures, image: carImage, details: carDetails };
+                return { ...car, name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures };
               }
               return null;
             }).filter(Boolean);
@@ -111,21 +120,23 @@ const CarList: React.FC = () => {
             <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Our Cars</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {currentItems.map((car, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
-                  <img src={car.pictures} alt={car.name} className="w-full h-64 object-cover" />
-                  <div className="p-6 flex flex-col flex-grow">
-                    <div className="flex-grow">
-                      <h2 className="text-2xl font-bold text-gray-800">{car.name}</h2>
-                      <div className="flex justify-between text-lg text-gray-700 mt-1">
-                        <span>{car.model_year}</span>
-                        <span>{car.grade}</span>
+                <Link to={`/car/${car['S.N.']}`} key={index} state={{ car }}>
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
+                    <img src={car.pictures} alt={car.name} className="w-full h-64 object-cover" />
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex-grow">
+                        <h2 className="text-2xl font-bold text-gray-800">{car.name}</h2>
+                        <div className="flex justify-between text-lg text-gray-700 mt-1">
+                          <span>{car.model_year}</span>
+                          <span>Grade {car.grade}</span>
+                        </div>
                       </div>
+                      <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition duration-300">
+                        View Details
+                      </button>
                     </div>
-                    <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition duration-300">
-                      View Details
-                    </button>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
             {/* Pagination Controls */}
