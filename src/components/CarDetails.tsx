@@ -9,9 +9,10 @@ const CarDetails: React.FC = () => {
     <div className="bg-gray-100 py-12">
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <img src={car.pictures} alt={car.name} className="w-full h-96 object-cover" />
+          <img src={'/cars/car1.png'} alt={car.name} className="w-full h-96 object-cover" />
           <div className="p-6">
             <h1 className="text-4xl font-bold text-gray-800">{car.name}</h1>
+            <div className="text-2xl font-bold text-gray-800 mt-2">৳{car.Price}</div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-lg text-gray-700">
               <div><span className="font-bold">Model:</span> {car.model_year}</div>
               <div><span className="font-bold">Grade:</span> {car.grade}</div>

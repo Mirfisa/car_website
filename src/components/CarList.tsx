@@ -13,8 +13,10 @@ interface Car {
   'Engine': string;
   'Grade': string;
   'Details': string;
+  'Price': string;
   'Landing': string;
   'Location': string;
+  'Solo Pictures': string;
   'Picture': string;
   'Status': string;
   'Drive Image': string;
@@ -52,10 +54,11 @@ const CarList: React.FC = () => {
               const carName = car['Car Name'];
               const carGrade = car['Grade'];
               const carModelYear = car['Model'];
-              const carPictures = car['Picture'];
+              const carPictures = 'cars/car1.png';
+              const carPrice = car['Price'];
 
               if (carName && carGrade && carModelYear && carPictures) {
-                return { ...car, name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures };
+                return { ...car, name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures, Price: carPrice };
               }
               return null;
             }).filter(Boolean);
@@ -122,18 +125,21 @@ const CarList: React.FC = () => {
               {currentItems.map((car, index) => (
                 <Link to={`/car/${car['S.N.']}`} key={index} state={{ car }}>
                   <div className="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
-                    <img src={car.pictures} alt={car.name} className="w-full h-64 object-cover" />
-                    <div className="p-6 flex flex-col flex-grow">
-                      <div className="flex-grow">
+                    <img src={`/${car.pictures}`} alt={car.name} className="w-full h-64 object-cover" />
+                    <div className="p-6 flex flex-col justify-between h-64 overflow-hidden">
+                      <div>
                         <h2 className="text-2xl font-bold text-gray-800">{car.name}</h2>
+                      </div>
+                      <div>
+                        <div className="text-xl font-bold text-gray-800 mt-2">৳{car.Price}</div>
                         <div className="flex justify-between text-lg text-gray-700 mt-1">
                           <span>{car.model_year}</span>
                           <span>Grade {car.grade}</span>
                         </div>
+                        <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition duration-300">
+                          View Details
+                        </button>
                       </div>
-                      <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition duration-300">
-                        View Details
-                      </button>
                     </div>
                   </div>
                 </Link>
