@@ -15,39 +15,53 @@ const CarList: React.FC = () => {
   const [cars, setCars] = useState<Car[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCars = async () => {
-      const response = await fetch('https://docs.google.com/spreadsheets/d/1uqwgVOtPtRQErRoRM8D5659b0_4mVZ8eI3hiwzGgYlU/export?format=csv');
-      const reader = response.body?.getReader();
-      const result = await reader?.read();
-      const decoder = new TextDecoder('utf-8');
-      const csv = decoder.decode(result?.value);
-      console.log("Raw CSV:", csv);
-
-      Papa.parse(csv, {
-        header: true,
-        complete: (results) => {
-          console.log("Parsed data:", results.data);
-          const processedCars = results.data.map((car: any) => {
-            const carName = car['Car Name'];
-            const carGrade = car['Grade'];
-            const carModelYear = car['Model'];
-            const carPictures = car['pictures'];
-
-            // For now, image and details will be empty strings
-            const carImage = '';
-            const carDetails = '';
-
-            if (carName && carGrade && carModelYear && carPictures) {
-              return { name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures, image: carImage, details: carDetails };
-            }
-            return null;
-          }).filter(Boolean);
-          console.log("Processed cars:", processedCars);
-          setCars(processedCars as Car[]);
+      try {
+        const response = await fetch('https://docs.google.com/spreadsheets/d/1uqwgVOtPtRQErRoRM8D5659b0_4mVZ8eI3hiwzGgYlU/export?format=csv');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
         }
-      });
+        const reader = response.body?.getReader();
+        const result = await reader?.read();
+        const decoder = new TextDecoder('utf-8');
+        const csv = decoder.decode(result?.value);
+        console.log("Raw CSV:", csv);
+
+        Papa.parse(csv, {
+          header: true,
+          complete: (results) => {
+            console.log("Parsed data:", results.data);
+            const processedCars = results.data.map((car: any) => {
+              const carName = car['Car Name'];
+              const carGrade = car['Grade'];
+              const carModelYear = car['Model'];
+              const carPictures = car['Picture'];
+
+              // For now, image and details will be empty strings
+              const carImage = '';
+              const carDetails = '';
+
+              if (carName && carGrade && carModelYear && carPictures) {
+                return { name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures, image: carImage, details: carDetails };
+              }
+              return null;
+            }).filter(Boolean);
+            console.log("Processed cars:", processedCars);
+            setCars(processedCars as Car[]);
+            setLoading(false);
+          },
+          error: (error: any) => {
+            throw new Error(error.message);
+          }
+        });
+      } catch (error) {
+        setError('Failed to fetch car data. Please try again later.');
+        setLoading(false);
+      }
     };
 
     fetchCars();
@@ -58,6 +72,30 @@ const CarList: React.FC = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = cars.slice(indexOfFirstItem, indexOfLastItem);
   console.log("Current items:", currentItems);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-2xl font-bold text-gray-700">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-2xl font-bold text-red-600">{error}</div>
+      </div>
+    );
+  }
+
+  if (cars.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-2xl font-bold text-gray-700">No cars available</div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-100 py-12">
