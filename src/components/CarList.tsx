@@ -49,11 +49,8 @@ const CarList: React.FC = () => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-        const reader = response.body?.getReader();
-        const result = await reader?.read();
-        const decoder = new TextDecoder('utf-8');
-        const csv = decoder.decode(result?.value);
-        console.log("Raw CSV:", csv);
+        const csv = await response.text();
+        console.log("Raw CSV length:", csv.length);
 
         Papa.parse(csv, {
           header: true,
@@ -71,13 +68,23 @@ const CarList: React.FC = () => {
               if (carImgURL) {
                 carPictures = carImgURL;
               }
-
               return { ...car, name: carName, grade: carGrade, model_year: carModelYear, pictures: carPictures, Price: carPrice };
-            }).filter(Boolean);
-            console.log("Processed cars:", processedCars);
-            setCars(processedCars as Car[]);
-            setGrades([...new Set(processedCars.map((car: any) => car.grade))].sort());
-            setModelYears([...new Set(processedCars.map((car: any) => car.model_year))].sort());
+            });
+
+            // Deduplication logic
+            const uniqueCarsMap = new Map();
+            processedCars.forEach((car: any) => {
+              // Filter out items with missing S.N.
+              if (car['S.N.'] && car['S.N.'].trim() !== '' && !uniqueCarsMap.has(car['S.N.'])) {
+                uniqueCarsMap.set(car['S.N.'], car);
+              }
+            });
+            const uniqueCars = Array.from(uniqueCarsMap.values());
+
+            console.log("Processed cars (unique):", uniqueCars);
+            setCars(uniqueCars as Car[]);
+            setGrades([...new Set(uniqueCars.map((car: any) => car.grade))].sort());
+            setModelYears([...new Set(uniqueCars.map((car: any) => car.model_year))].sort());
             setLoading(false);
           },
           error: (error: any) => {
