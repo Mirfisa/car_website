@@ -1,6 +1,7 @@
 import React from 'react';
 import Carousel from './Carousel';
 import BrandLogos from './BrandLogos';
+import AboutUs from './AboutUs';
 import BookingForm from './BookingForm';
 import { Slide } from '../types';
 
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
     <main>
       <Carousel slides={slides} />
       <BrandLogos />
+      <AboutUs />
       <BookingForm />
     </main>
   );
