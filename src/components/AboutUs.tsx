@@ -19,40 +19,28 @@ const AboutUs: React.FC = () => {
 
                     {/* Text Side */}
                     <div className="w-full md:w-1/2 space-y-6">
-                        <div className="inline-block px-5 py-2 bg-blue-50 rounded-full text-lg font-bold text-blue-600 mb-4 shadow-sm">
-                            About Us
+                        <div className="relative">
+                            <h2 className="text-4xl font-bold text-gray-900 uppercase tracking-wide">
+                                About Us
+                            </h2>
+                            <div className="h-1.5 w-16 bg-orange-500 mt-2"></div>
                         </div>
-                        <h2 className="text-4xl font-bold text-gray-900 leading-tight">
-                            Driving Excellence, <br />
-                            <span className="text-blue-600">Delivering Dreams</span>
-                        </h2>
-                        <p className="text-lg text-gray-600 leading-relaxed">
-                            Welcome to our premier destination for luxury and performance vehicles.
-                            With over 20 years of experience in the automotive industry, we pride
-                            ourselves on delivering an exceptional car buying experience.
+                        
+                        <p className="text-lg text-gray-700 leading-relaxed">
+                            <span className="font-semibold">Shahtab's Trading</span> is a premier car import and dealership company based in
+                            Bangladesh. Renowned for its commitment to quality and customer
+                            satisfaction, Shahtab's Trading has established itself as a trusted name in the
+                            automotive industry. Specializing in the import and sale of a wide range of car
+                            brands, including Toyota, Honda, Nissan, and many more, the company caters
+                            to the diverse needs of car enthusiasts and buyers in Bangladesh.
                         </p>
-                        <p className="text-gray-600 leading-relaxed">
-                            Our curated collection features the finest automobiles from around the world,
-                            ensuring that you find the perfect vehicle to match your lifestyle. We believe
-                            in transparency, quality, and customer satisfaction above all else.
+                        
+                        <p className="text-lg text-gray-700 leading-relaxed">
+                            Shahtab's Trading aims to provide high-quality vehicles and exceptional
+                            customer service, ensuring a seamless and trustworthy car-buying experience.
+                            The company is dedicated to maintaining the highest standards of integrity and
+                            professionalism in all its operations.
                         </p>
-
-                        <div className="pt-4 flex gap-4">
-                            <div className="flex flex-col">
-                                <span className="text-3xl font-bold text-gray-900">20+</span>
-                                <span className="text-sm text-gray-500">Years Experience</span>
-                            </div>
-                            <div className="w-px bg-gray-300 h-12"></div>
-                            <div className="flex flex-col">
-                                <span className="text-3xl font-bold text-gray-900">5k+</span>
-                                <span className="text-sm text-gray-500">Happy Clients</span>
-                            </div>
-                            <div className="w-px bg-gray-300 h-12"></div>
-                            <div className="flex flex-col">
-                                <span className="text-3xl font-bold text-gray-900">500+</span>
-                                <span className="text-sm text-gray-500">Cars Sold</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
