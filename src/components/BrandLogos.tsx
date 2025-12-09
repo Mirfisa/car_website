@@ -22,7 +22,7 @@ const BrandLogos: React.FC = () => {
           {duplicatedBrands.map((brand, index) => (
             <div key={index} className="flex-shrink-0">
               <img
-                src={`/brands/${brand}`}
+                src={`${process.env.PUBLIC_URL}/brands/${brand}`}
                 alt={brand.split('.')[0]}
                 className="h-32 transition duration-300 hover:scale-105 mx-16" // Added mx-4 for spacing
               />

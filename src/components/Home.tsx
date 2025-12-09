@@ -8,17 +8,17 @@ import { Slide } from '../types';
 const slides: Slide[] = [
   {
     id: 1,
-    image: "/cars/car1.jpg",
+    image: `${process.env.PUBLIC_URL}/cars/car1.jpg`,
     alt: "Modern Cars"
   },
   {
     id: 2,
-    image: "/cars/car2.jpg",
+    image: `${process.env.PUBLIC_URL}/cars/car2.jpg`,
     alt: "Easy Financing"
   },
   {
     id: 3,
-    image: "/cars/car3.jpg",
+    image: `${process.env.PUBLIC_URL}/cars/car3.jpg`,
     alt: "Pre-Order Now"
   }
 ];
