@@ -22,10 +22,10 @@ const DataPage: React.FC = () => {
         <table className="min-w-full bg-white">
           <thead>
             <tr className="bg-gray-100">
-              <th className="py-2 px-4 border-b sticky top-0 bg-gray-100 z-50">#</th>
+              <th className="py-2 px-4 border-b sticky top-0 bg-gray-100 z-40">#</th>
               {cars.length > 0 &&
                 Object.keys(cars[0]).map((key) => (
-                  <th key={key} className="py-2 px-4 border-b sticky top-0 bg-gray-100 z-50">
+                  <th key={key} className="py-2 px-4 border-b sticky top-0 bg-gray-100 z-40">
                     {key}
                   </th>
                 ))}

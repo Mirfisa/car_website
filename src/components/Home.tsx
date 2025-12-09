@@ -16,11 +16,6 @@ const slides: Slide[] = [
     image: `${process.env.PUBLIC_URL}/cars/car2.jpg`,
     alt: "Easy Financing"
   },
-  {
-    id: 3,
-    image: `${process.env.PUBLIC_URL}/cars/car3.jpg`,
-    alt: "Pre-Order Now"
-  }
 ];
 
 const Home: React.FC = () => {
